@@ -2,8 +2,8 @@ package Insert;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Customer_Insert {
-	public void customerinsertMethod() {
+public class Orders_Insert {
+	public void ordersinsertMethod() {
 		Scanner sc = new Scanner(System.in);
 		String tableselectQuery;
 		String insertQuery;
@@ -17,7 +17,7 @@ public class Customer_Insert {
 			
 			Statement stmt=con.createStatement();
 			
-			tableselectQuery = "SELECT * FROM Customer";
+			tableselectQuery = "SELECT * FROM Orders";
 			ResultSet rs=stmt.executeQuery(tableselectQuery);
 			
 			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
@@ -26,7 +26,7 @@ public class Customer_Insert {
 			System.out.println("삽입할 값을 입력해주세요.");
 			System.out.println();
 			
-			insertQuery = "INSERT INTO `Customer` VALUES (?, ?, ?, ?, ?, ?);";
+			insertQuery = "INSERT INTO `Orders` VALUES (?, ?, ?, ?, ?, ?);";
 			PreparedStatement pstmt = null;
 			pstmt=con.prepareStatement(insertQuery);
 			
@@ -40,7 +40,10 @@ public class Customer_Insert {
 					}else if(columnType == Types.VARCHAR) {
 						String temp1 =sc.nextLine();
 						pstmt.setString(i, temp1);
-		
+					}else if(columnType == Types.DATE) {
+						int temp2 = sc.nextInt();
+						pstmt.setInt(i, temp2);
+						sc.nextLine();
 					}
 				System.out.println();
 				}

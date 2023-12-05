@@ -4,10 +4,7 @@ import Insert.Customer_Insert;
 import Insert.Laundry_Insert;
 import Insert.OrderList_Insert;
 import Insert.Orders_Insert;
-import delete.Customer_Delete;
 import delete.Laundry_Delete;
-import delete.OrderList_Delete;
-import delete.Orders_Delete;
 
 public class menu {
 	public static void main(String[] args) {
@@ -40,27 +37,18 @@ public class menu {
 			}else if(menu_select == 6) {
 				Customer_Insert insert = new Customer_Insert();
 				insert.customerinsertMethod(); //고객 정보 삽입
-			}else if(menu_select == 7) {
-				Customer_Delete delete = new Customer_Delete();
-				delete.customerdeleteMethod(); //고객 정보 삭제
 			}else if(menu_select == 9) {
 				Orders_Select select = new Orders_Select();
 				select.ordersselectMethod();//주문 정보 조회
 			}else if(menu_select == 10) {
 				Orders_Insert insert = new Orders_Insert();
 				insert.ordersinsertMethod(); //주문 정보 삽입
-			}else if(menu_select == 11) {
-				Orders_Delete delete = new Orders_Delete();
-				delete.ordersdeleteMethod(); //주문 정보 삭제
 			}else if(menu_select == 13){
 				OrderList_Select select = new OrderList_Select();
 				select.orderlistselectMethod();//주문 목록 조회
 			}else if(menu_select == 14) {
 				OrderList_Insert insert = new OrderList_Insert();
-				insert.orderlistinsertMethod(); //주문 목록 삽입
-			}else if(menu_select == 15) {
-				OrderList_Delete delete = new OrderList_Delete();
-				delete.orderlistdeleteMethod(); //주문 목록 삭제
+				insert.orderlistinsertMethod();
 			}else if(menu_select == 16) {
 				CustomerGrade_Select select = new CustomerGrade_Select();
 				select.customergradeselectMethod();//고객 등급 조회

@@ -1,0 +1,113 @@
+package delete;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Laundry_Delete {
+	public void deleteMethod() {
+
+		Scanner sc = new Scanner(System.in);
+		String showtablesQuery;
+		String tablename;
+		String tableselectQuery;
+		String deleteQuery;
+		String Columnname;
+		int id;
+		
+		try{ 
+			Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 연결
+			Connection con=DriverManager.getConnection(
+					"jdbc:mysql://192.168.56.101:4567/madang",
+					"kminnyes","rudals135!!"); //DB 연결
+			showtablesQuery = "SHOW TABLES;";
+			
+			Statement stmt=con.createStatement();
+
+			ResultSet rs=stmt.executeQuery(showtablesQuery);
+			while(rs.next()) {
+				System.out.println(rs.getString(1));
+			}
+			
+			System.out.println();
+			System.out.println("삭제하실 테이블을 선택하여 주세요.");
+			tablename = sc.next();
+			tableselectQuery = "SELECT * FROM "+tablename;
+			
+			rs=stmt.executeQuery(tableselectQuery);
+			
+			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
+			
+			System.out.println("---------------------------------------------------");
+			for(int i =1; i<= rsmd.getColumnCount(); i++) {
+				System.out.printf("%s ", rsmd.getColumnName(i));
+			}
+			System.out.println();
+			System.out.println("---------------------------------------------------"); // 상위 칼럼목록 표기
+			
+			while(rs.next()) {
+				for(int i =1; i<=rsmd.getColumnCount(); i++)
+				{
+					int columnType = rsmd.getColumnType(i);
+					
+					if(columnType == Types.INTEGER) {
+						System.out.printf("%d ", rs.getInt(i));
+					}else if(columnType == Types.VARCHAR) {
+						System.out.printf("%s ", rs.getString(i));
+					}else if(columnType == Types.DATE) {
+						System.out.printf("%tF ", rs.getDate(i));
+					}
+					
+				}
+				System.out.println(); //자료형에 맞게 출력하기
+				
+			}
+			
+			Columnname = rsmd.getColumnName(1); // 1열 값을 기준으로 삭제하기
+			
+			deleteQuery = "DELETE FROM `"+tablename+"` WHERE "+ Columnname +" =?;";
+			PreparedStatement pstmt = null;
+			pstmt=con.prepareStatement(deleteQuery);
+			
+			System.out.println();
+			System.out.println("삭제할 행의 ID번호를 입력하여 주세요.");
+			
+			id = sc.nextInt();
+			pstmt.setInt(1, id);
+			int cnt = pstmt.executeUpdate();
+			
+			System.out.println();
+			System.out.println(cnt+"개의 행이 삭제되었습니다."); // 삭제완료
+			
+			System.out.println();
+			
+			rs=pstmt.executeQuery(tableselectQuery);
+			rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
+			System.out.println("---------------------------------------------------"); // 상위 칼럼목록 표기
+			for(int i =1; i<= rsmd.getColumnCount(); i++) {
+				System.out.printf("%s ", rsmd.getColumnName(i));
+			}
+			System.out.println();
+			System.out.println("---------------------------------------------------");
+			
+			while(rs.next()) {
+				for(int i =1; i<=rsmd.getColumnCount(); i++)
+				{
+					int columnType = rsmd.getColumnType(i);
+					
+					if(columnType == Types.INTEGER) {
+						System.out.printf("%d ", rs.getInt(i));
+					}else if(columnType == Types.VARCHAR) {
+						System.out.printf("%s ", rs.getString(i));
+					}else if(columnType == Types.DATE) {
+						System.out.printf("%tF ", rs.getDate(i));
+					}
+					
+				}
+				System.out.println(); //삭제된 테이블 자료형에 맞게 출력하기
+			}
+		
+			con.close();
+			sc.close();
+		}catch(Exception e){ System.out.println(e);}
+	}
+
+}

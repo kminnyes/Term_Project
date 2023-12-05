@@ -40,7 +40,10 @@ public class Customer_Insert {
 					}else if(columnType == Types.VARCHAR) {
 						String temp1 =sc.nextLine();
 						pstmt.setString(i, temp1);
-		
+					}else if(columnType == Types.DATE) {
+						int temp2 = sc.nextInt();
+						pstmt.setInt(i, temp2);
+						sc.nextLine();
 					}
 				System.out.println();
 				}
