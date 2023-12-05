@@ -1,0 +1,34 @@
+import java.util.Scanner;
+
+public class menu {
+	public static void main(String[] args) {
+		Scanner sc = new Scanner(System.in);
+		int menu_select = 0;
+		
+		while(true) {
+			System.out.println("-----------------------------------------------------------------");
+			System.out.println("원하는 메뉴의 번호를 선택하여 주세요.\n");
+			System.out.println("1.세탁소 정보 조회 \t 2.세탁소 정보 삽입 \t 3.세탁소 정보 삭제 \t 4.세탁소 정보 변경"
+					+"\n" + "5.고객 정보 조회 \t 6.고객 정보 삽입 \t 7.고객 정보 삭제 \t 8.고객 정보 변경"
+					+"\n"+"9.주문 정보 조회 \t 10.주문 정보 삽입 \t 11.주문 정보 삭제 \t 12.주문 정보 변경"
+					+"\n"+"13.주문 목록 조회 \t 14.목록 옵션 조회 \t 15.목록 삭제 \t 16. 고객 등급 조회"
+					+"\n"+"17.quit" );
+			System.out.println("-----------------------------------------------------------------");
+			menu_select = sc.nextInt();
+			
+			if(menu_select == 1) {
+				Laundry_Select select = new Laundry_Select(); //검색 클래스 객체 생성
+				select.laundryselectMethod();//세탁소 정보 조회
+			}else if(menu_select == 5) {
+				Customer_Select select = new Customer_Select();
+				select.customerselectMethod();//고객 정보 조회
+			}else if(menu_select == 17){
+				sc.close();
+				break;
+				}
+			
+		}
+	
+	}
+
+}
