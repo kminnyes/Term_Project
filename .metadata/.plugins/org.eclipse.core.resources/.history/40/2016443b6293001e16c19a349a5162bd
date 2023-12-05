@@ -20,12 +20,12 @@ public class Customer_Select {
 			ResultSet rs=stmt.executeQuery(query);
 			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
 			
-			System.out.println("------------------------------------------------------------");
+			System.out.println("---------------------------------------------------");
 			for(int i =1; i<= rsmd.getColumnCount(); i++) {
 				System.out.printf("%s ", rsmd.getColumnName(i));
 			}
 			System.out.println();
-			System.out.println("------------------------------------------------------------"); // 상위 칼럼목록 표기
+			System.out.println("---------------------------------------------------"); // 상위 칼럼목록 표기
 			
 			while(rs.next()) {
 				for(int i =1; i<=rsmd.getColumnCount(); i++)

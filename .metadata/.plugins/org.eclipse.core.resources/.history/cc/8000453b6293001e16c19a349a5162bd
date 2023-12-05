@@ -36,7 +36,7 @@ public class menu {
 			}else if(menu_select == 2) {
 				Laundry_Insert insert = new Laundry_Insert();
 				insert.laundryinsertMethod();//세탁소 정보 삽입
-			}else if(menu_select == 3) {
+			}else if(menu_select ==3) {
 				Laundry_Delete delete = new Laundry_Delete();
 				delete.laundrydeleteMethod(); //세탁소 정보 삭제
 			}else if(menu_select == 4) {

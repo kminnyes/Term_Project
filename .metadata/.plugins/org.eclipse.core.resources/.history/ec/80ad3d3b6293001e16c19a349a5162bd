@@ -2,8 +2,8 @@ package Insert;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Orders_Insert {
-	public void ordersinsertMethod() {
+public class OrderList_Insert {
+	public void orderlistinsertMethod() {
 		Scanner sc = new Scanner(System.in);
 		String tableselectQuery;
 		String insertQuery;
@@ -17,7 +17,7 @@ public class Orders_Insert {
 			
 			Statement stmt=con.createStatement();
 			
-			tableselectQuery = "SELECT * FROM Orders";
+			tableselectQuery = "SELECT * FROM OrderList";
 			ResultSet rs=stmt.executeQuery(tableselectQuery);
 			
 			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
@@ -26,7 +26,7 @@ public class Orders_Insert {
 			System.out.println("삽입할 값을 입력해주세요.");
 			System.out.println();
 			
-			insertQuery = "INSERT INTO `Orders` VALUES (?, ?, ?, ?, ?, ?);";
+			insertQuery = "INSERT INTO `OrderList` VALUES (?, ?, ?, ?, ?);";
 			PreparedStatement pstmt = null;
 			pstmt=con.prepareStatement(insertQuery);
 			
@@ -49,11 +49,7 @@ public class Orders_Insert {
 				}
 			
 			int cnt = pstmt.executeUpdate();
-			if(cnt>0) {
-				System.out.println(cnt+"개의 행이 삽입되었습니다.");
-			}else{
-				System.out.println("문제가 발생하였습니다.");
-			}; //삽입완료
+			System.out.println(cnt+"개의 행이 삽입되었습니다."); //삽입완료
 			
 			System.out.println();
 			

@@ -42,7 +42,11 @@ public class Laundry_Delete {
 			int cnt = pstmt.executeUpdate();
 			
 			System.out.println();
-			System.out.println(cnt+"개의 행이 삭제되었습니다."); // 삭제완료
+			if(cnt>0) {
+				System.out.println(cnt+"개의 행이 삭제되었습니다.");
+			}else{
+				System.out.println("문제가 발생하였습니다.");
+			}; //삭제완료
 			
 			System.out.println();
 			

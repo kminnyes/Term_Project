@@ -46,7 +46,11 @@ public class Customer_Insert {
 				}
 			
 			int cnt = pstmt.executeUpdate();
-			System.out.println(cnt+"개의 행이 삽입되었습니다."); //삽입완료
+			if(cnt>0) {
+				System.out.println(cnt+"개의 행이 삽입되었습니다.");
+			}else{
+				System.out.println("문제가 발생하였습니다.");
+			}; //삽입완료
 			
 			System.out.println();
 			

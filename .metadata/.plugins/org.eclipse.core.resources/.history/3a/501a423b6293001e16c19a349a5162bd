@@ -2,14 +2,17 @@ package delete;
 import java.sql.*;
 import java.util.Scanner;
 
-public class Orders_Delete {
-	public void ordersdeleteMethod() {
+public class OrderList_Delete {
+	public void orderlistdeleteMethod() {
 
 		Scanner sc = new Scanner(System.in);
 		String tableselectQuery;
 		String deleteQuery;
+		String ConQuery;
 		String Columnname;
+		String Columnname2;
 		int id;
+		int id2;
 		
 		try{ 
 			Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 연결
@@ -21,32 +24,40 @@ public class Orders_Delete {
 			Statement stmt=con.createStatement();
 			
 			
-			tableselectQuery = "SELECT * FROM Orders";
+			tableselectQuery = "SELECT * FROM OrderList";
 			
 			ResultSet rs=stmt.executeQuery(tableselectQuery);
 			
 			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
 			
 			
-			Columnname = rsmd.getColumnName(1); // 1열 값을 기준으로 삭제하기
+			Columnname = rsmd.getColumnName(1);
+			Columnname2 = rsmd.getColumnName(2);// 열 값을 기준으로 삭제하기
 			
-			deleteQuery = "DELETE FROM `Orders` WHERE "+ Columnname +" =?;";
+			ConQuery="SET FOREIGN_KEY_CHECKS=0;";
+			con.setAutoCommit(false);
+			stmt.addBatch(ConQuery);
+			stmt.executeBatch();
+			con.commit();//외래키 check 해제
+			
+			deleteQuery = "DELETE FROM `OrderList` WHERE "+ Columnname + "=?" + " AND "+ Columnname2 + "=?;";
 			PreparedStatement pstmt = null;
 			pstmt=con.prepareStatement(deleteQuery);
 			
 			System.out.println();
-			System.out.println("삭제할 행의 주문번호를 입력하여 주세요.");
+			System.out.println("삭제할 행의 세탁물 번호(washing_no)를 입력하여 주세요.");
 			
 			id = sc.nextInt();
 			pstmt.setInt(1, id);
+			sc.nextLine();
+			System.out.println("삭제할 행의 주문 번호(orders_no)를 입력하여 주세요.");
+			id2 = sc.nextInt();
+			pstmt.setInt(2, id2);
+			
 			int cnt = pstmt.executeUpdate();
 			
 			System.out.println();
-			if(cnt>0) {
-				System.out.println(cnt+"개의 행이 삭제되었습니다.");
-			}else{
-				System.out.println("문제가 발생하였습니다.");
-			}; //삭제완료
+			System.out.println(cnt+"개의 행이 삭제되었습니다."); // 삭제완료
 			
 			System.out.println();
 			
