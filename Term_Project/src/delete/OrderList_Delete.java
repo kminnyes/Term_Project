@@ -8,8 +8,11 @@ public class OrderList_Delete {
 		Scanner sc = new Scanner(System.in);
 		String tableselectQuery;
 		String deleteQuery;
+		String ConQuery;
 		String Columnname;
+		String Columnname2;
 		int id;
+		int id2;
 		
 		try{ 
 			Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 연결
@@ -28,9 +31,16 @@ public class OrderList_Delete {
 			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
 			
 			
-			Columnname = rsmd.getColumnName(1); // 1열 값을 기준으로 삭제하기
+			Columnname = rsmd.getColumnName(1);
+			Columnname2 = rsmd.getColumnName(2);// 열 값을 기준으로 삭제하기
 			
-			deleteQuery = "DELETE FROM `OrderList` WHERE "+ Columnname +" =?;";
+			ConQuery="SET FOREIGN_KEY_CHECKS=0;";
+			con.setAutoCommit(false);
+			stmt.addBatch(ConQuery);
+			stmt.executeBatch();
+			con.commit();//외래키 check 해제
+			
+			deleteQuery = "DELETE FROM `OrderList` WHERE "+ Columnname + "=?" + " AND "+ Columnname2 + "=?;";
 			PreparedStatement pstmt = null;
 			pstmt=con.prepareStatement(deleteQuery);
 			
@@ -39,6 +49,11 @@ public class OrderList_Delete {
 			
 			id = sc.nextInt();
 			pstmt.setInt(1, id);
+			sc.nextLine();
+			System.out.println("삭제할 행의 주문 번호(orders_no)를 입력하여 주세요.");
+			id2 = sc.nextInt();
+			pstmt.setInt(2, id2);
+			
 			int cnt = pstmt.executeUpdate();
 			
 			System.out.println();

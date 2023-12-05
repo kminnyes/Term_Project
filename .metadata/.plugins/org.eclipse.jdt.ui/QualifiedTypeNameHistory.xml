@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<qualifiedTypeNameHistroy>
+    <fullyQualifiedTypeName name="Insert.Laundry_Insert"/>
+    <fullyQualifiedTypeName name="Insert.Customer_Insert"/>
+    <fullyQualifiedTypeName name="Insert.Orders_Insert"/>
+    <fullyQualifiedTypeName name="Insert.OrderList_Insert"/>
+    <fullyQualifiedTypeName name="delete.Laundry_Delete"/>
+    <fullyQualifiedTypeName name="delete.Customer_Delete"/>
+    <fullyQualifiedTypeName name="delete.Orders_Delete"/>
+    <fullyQualifiedTypeName name="delete.OrderList_Delete"/>
+    <fullyQualifiedTypeName name="modify.Laundry_Modify"/>
+</qualifiedTypeNameHistroy>

@@ -26,7 +26,7 @@ public class OrderList_Insert {
 			System.out.println("삽입할 값을 입력해주세요.");
 			System.out.println();
 			
-			insertQuery = "INSERT INTO `OrderList` VALUES (?, ?, ?, ?, ?, ?);";
+			insertQuery = "INSERT INTO `OrderList` VALUES (?, ?, ?, ?, ?);";
 			PreparedStatement pstmt = null;
 			pstmt=con.prepareStatement(insertQuery);
 			

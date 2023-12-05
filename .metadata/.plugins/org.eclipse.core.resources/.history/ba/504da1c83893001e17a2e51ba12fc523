@@ -1,0 +1,72 @@
+package modify;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Laundry_Modify {
+	public void laundrymodifyMethod() {
+		Scanner sc = new Scanner(System.in);
+		String tableselectQuery;
+		String updateQuery;
+		
+		try{ 
+			Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 연결
+			Connection con=DriverManager.getConnection(
+					"jdbc:mysql://192.168.56.101:4567/laundry",
+					"kminnyes","rudals135!!"); //DB 연결
+			
+			
+			Statement stmt=con.createStatement();
+			
+			tableselectQuery = "SELECT * FROM Laundry";
+			ResultSet rs=stmt.executeQuery(tableselectQuery);
+			
+			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
+			
+			
+			System.out.println("수정할 행의 값을 입력해주세요.");
+			System.out.println();
+			
+			updateQuery = "UPDATE `Orders` SET";
+			for (int i =1; i< rsmd.getColumnCount(); i++) {
+				if(i > 1) {
+					updateQuery += ", ";
+				}
+				updateQuery += rsmd.getColumnName(i) + "=?";
+			}
+			updateQuery += "WHERE laundry_detailaddr=?;";
+			
+			PreparedStatement pstmt = null;
+			pstmt=con.prepareStatement(updateQuery);
+			
+			for(int i =1; i<= rsmd.getColumnCount(); i++) {// column타입에 맞는 자료형으로 수정하기
+				System.out.printf("%s ", rsmd.getColumnName(i)+":");
+					int columnType =rsmd.getColumnType(i);
+					if(columnType == Types.INTEGER) {
+						int temp = sc.nextInt();
+						pstmt.setInt(i, temp);
+						sc.nextLine();
+					}else if(columnType == Types.VARCHAR) {
+						String temp1 =sc.nextLine();
+						pstmt.setString(i, temp1);
+					}else if(columnType == Types.DATE) {
+						String dateInput = sc.nextLine();
+						pstmt.setString(i, dateInput);
+					}
+				System.out.println();
+				}
+			
+			
+			int cnt = pstmt.executeUpdate();
+			System.out.println(cnt+"개의 행이 수정되었습니다."); //수정완료
+			
+			System.out.println();
+			
+						
+			con.close();
+			sc.close();
+		}catch(Exception e){ System.out.println(e);}
+		
+	}
+
+
+}

@@ -1,0 +1,64 @@
+package modify;
+import java.sql.*;
+import java.util.Scanner;
+
+public class Laundry_Modify {
+	public void laundrymodifyMethod() {
+		Scanner sc = new Scanner(System.in);
+		String tableselectQuery;
+		String updateQuery;
+		int id;
+		String name;
+		String num;
+		String localaddr;
+		String detailaddr;
+		
+		try{ 
+			Class.forName("com.mysql.cj.jdbc.Driver"); //드라이버 연결
+			Connection con=DriverManager.getConnection(
+					"jdbc:mysql://192.168.56.101:4567/laundry",
+					"kminnyes","rudals135!!"); //DB 연결
+			
+			
+			Statement stmt=con.createStatement();
+			
+			tableselectQuery = "SELECT * FROM Laundry";
+			ResultSet rs=stmt.executeQuery(tableselectQuery);
+			
+			ResultSetMetaData rsmd = rs.getMetaData(); //rs에 조회한 데이터 저장
+			
+			System.out.print("세탁소 ID: ");
+			id = sc.nextInt();
+			sc.nextLine();
+			System.out.print("세탁소 이름: ");
+			name = sc.nextLine();
+			System.out.print("전화번호: ");
+			num = sc.nextLine();
+			System.out.print("지역구 명: ");
+			localaddr = sc.nextLine();
+			System.out.print("상세주소: ");
+			detailaddr = sc.nextLine();
+			
+			
+			updateQuery = "UPDATE Laundry SET laundry_name=" +name+ ", laundry_num=" +num+
+					", laundry_localaddr=" +localaddr+ ", laundry_detailaddr=" +detailaddr+ 
+					" WHERE laundry_id=" +id;
+			
+			PreparedStatement pstmt = null;
+			pstmt=con.prepareStatement(updateQuery);// 쿼리 준비
+			
+			
+			int cnt = pstmt.executeUpdate();
+			System.out.println(cnt+"개의 행이 수정되었습니다."); //수정완료
+			
+			System.out.println();
+			
+						
+			con.close();
+			sc.close();
+		}catch(Exception e){ System.out.println(e);}
+		
+	}
+
+
+}
